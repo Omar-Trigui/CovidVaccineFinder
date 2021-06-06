@@ -1,19 +1,14 @@
 const nodemailer = require("nodemailer");
 const key = require("./keys");
 //let testAccount = await nodemailer.createTestAccount();
-console.log({
-  user: key.google.email, // generated ethereal user
-  pass: key.google.password, // generated ethereal password
-  env: process.env,
-});
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true, // use SSL
   auth: {
-    user: "omartrigui1995@gmail.com", // generated ethereal user
-    pass: "hellomadridwx95", // generated ethereal password
+    user: "otrigui251@gmail.com", // generated ethereal user
+    pass: "otrigui251otrigui251", // generated ethereal password
   },
 });
 
