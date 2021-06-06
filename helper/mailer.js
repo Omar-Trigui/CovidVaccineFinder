@@ -4,6 +4,7 @@ const key = require("./keys");
 console.log({
   user: key.google.email, // generated ethereal user
   pass: key.google.password, // generated ethereal password
+  env: process.env,
 });
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
