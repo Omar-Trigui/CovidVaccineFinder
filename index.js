@@ -7,7 +7,7 @@ const URL = process.env.DOCTOR_URL_KARLSFELD;
 const URL2 = process.env.DOCTOR_URL_GZB;
 const fetchVaccine = () => {
     axios
-    .get(URL)
+    .get(URL2)
     .then((response) => {
         const { data } = response;
         console.log(data);
