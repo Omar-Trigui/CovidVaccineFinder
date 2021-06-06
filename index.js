@@ -4,7 +4,8 @@ const axios = require("axios").default;
 const transporter = require("./helper/mailer");
 
 const URL = process.env.DOCTOR_URL_KARLSFELD;
-const URL2 = process.env.DOCTOR_URL_GZB;
+const URL2 =
+  "https://www.doctolib.de/availabilities.json?start_date=2021-06-06&visit_motive_ids=2741487&agenda_ids=472530&insurance_sector=public&practice_ids=186461&destroy_temporary=true&limit=3";
 const fetchVaccine = () => {
     axios
     .get(URL2)
