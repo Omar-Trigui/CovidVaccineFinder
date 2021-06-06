@@ -8,7 +8,7 @@ const URL2 =
   "https://www.doctolib.de/availabilities.json?start_date=2021-06-06&visit_motive_ids=2741487&agenda_ids=472530&insurance_sector=public&practice_ids=186461&destroy_temporary=true&limit=3";
 const fetchVaccine = () => {
     axios
-    .get(URL2)
+    .get(URL)
     .then((response) => {
         const { data } = response;
         console.log(data);
