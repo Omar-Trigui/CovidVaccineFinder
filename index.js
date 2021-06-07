@@ -32,7 +32,7 @@ const fetchVaccine = () => {
               }
             });
             doctor.skip = true;
-            doctor.excute = moment().add(1, "minutes");
+            doctor.excute = moment().add(6, "hours");
           } catch (error) {
             console.log(error);
           }
