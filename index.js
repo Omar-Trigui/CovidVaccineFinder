@@ -2,46 +2,57 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname + "/.env") });
 const axios = require("axios").default;
 const transporter = require("./helper/mailer");
-
-const URL = process.env.DOCTOR_URL_KARLSFELD;
-const URL2 = process.env.DOCTOR_URL_GZB;
+const doctolib = require("./helper/doctors");
+const randomNumber = require("./helper/Random");
+const moment = require("moment");
+console.log("Start the process 🎸");
 const fetchVaccine = () => {
+  doctolib.doctors.map((doctor) => {
     axios
-    .get(URL)
-    .then((response) => {
+      .get(doctor.url)
+      .then((response) => {
         const { data } = response;
-        console.log(data);
-        if (data.total >= 1) {
-        let mailOptions = {
+        //console.log(data);
+        if (doctor.skip && moment().isSameOrAfter(doctor.excute)) {
+          doctor.skip = false;
+        }
+        if (data.total >= 1 && !doctor.skip) {
+          let mailOptions = {
             from: "omartrigui2020@gmail.com", // sender address
             to: "omartrigui2020@gmail.com", // lisurlt of receivers
             subject: "Covid Vaccine", // Subject line
-            html: `we found a 💉`, // html body
-        };
-        try {
+            html: `<span>we found a ${doctor.type} 💉 in ${doctor.name} </span>: <br/> <a href="${doctor.link}">${doctor.link}</a>`, // html body
+          };
+          try {
             transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
+              if (error) {
                 console.log(error);
-                } else {
+              } else {
                 console.log("Message sent: %s", info.messageId);
-                }
+              }
             });
-        } catch (error) {
+            doctor.skip = true;
+            doctor.excute = moment().add(1, "minutes");
+          } catch (error) {
             console.log(error);
-        }
+          }
 
-        console.log("we found a 💉");
+          console.log(
+            `✅  we found a ${doctor.type} 💉 in doctor ${doctor.name} `
+          );
         } else {
-        console.log("keep going");
+          console.log(
+            `❌ keep going doctor ${doctor.name} does not have a 💉 available right now`
+          );
         }
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         // handle error
         console.log(error);
-    });
-}
+      });
+  });
+};
 
 setInterval(() => {
-    fetchVaccine();
-}, 10000);
-
+  fetchVaccine();
+}, randomNumber(10000, 30000));
